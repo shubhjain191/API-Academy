@@ -1,0 +1,198 @@
+export const httpStatusCodesData = {
+  title: "HTTP Status Codes",
+  description: "Understanding HTTP status codes and their meanings in API responses.",
+  overview:
+    "HTTP status codes are three-digit numbers returned by servers to indicate the result of a client's request. They provide immediate feedback about whether a request was successful, failed, or requires additional action.",
+  keyConcepts: [
+    {
+      term: "Status Code Classes",
+      definition:
+        "Codes are grouped into 5 classes: 1xx (Informational), 2xx (Success), 3xx (Redirection), 4xx (Client Error), 5xx (Server Error)",
+    },
+    {
+      term: "Response Headers",
+      definition: "Additional metadata sent with status codes to provide more context",
+    },
+    {
+      term: "Error Handling",
+      definition: "Proper status codes help clients understand how to handle different response scenarios",
+    },
+    {
+      term: "RESTful Design",
+      definition: "Status codes are essential for RESTful API design and client-server communication",
+    },
+  ],
+  sections: [
+    {
+      title: "Success Codes (2xx)",
+      badge: "Success",
+      description: "Indicates that the client's request was successfully received, understood, and accepted.",
+      items: [
+        {
+          code: "200",
+          title: "OK",
+          description: "Request succeeded. Response body contains the requested data.",
+          example: "GET /api/users/123\n# Returns user data with 200 OK",
+          useCase: "Successful GET, PUT, PATCH requests with response data",
+        },
+        {
+          code: "201",
+          title: "Created",
+          description: "Resource successfully created. Often includes Location header with new resource URL.",
+          example: "POST /api/users\n# Creates user, returns 201 Created\nLocation: /api/users/124",
+          useCase: "Successful POST requests that create new resources",
+        },
+        {
+          code: "202",
+          title: "Accepted",
+          description: "Request accepted for processing but not completed yet. Used for asynchronous operations.",
+          example: "POST /api/reports/generate\n# Returns 202 Accepted for long-running task",
+          useCase: "Asynchronous processing, batch operations, queued tasks",
+        },
+        {
+          code: "204",
+          title: "No Content",
+          description: "Request succeeded but no content to return. Common with DELETE operations.",
+          example: "DELETE /api/users/123\n# Returns 204 No Content",
+          useCase: "Successful DELETE, PUT operations without response body",
+        },
+      ],
+    },
+    {
+      title: "Redirection Codes (3xx)",
+      badge: "Redirection",
+      description: "Indicates that further action needs to be taken to complete the request.",
+      items: [
+        {
+          code: "301",
+          title: "Moved Permanently",
+          description: "Resource has permanently moved to a new URL. Clients should update bookmarks.",
+          example: "GET /api/v1/users\n# 301 Moved Permanently\nLocation: /api/v2/users",
+          useCase: "API versioning, permanent URL changes, SEO redirects",
+        },
+        {
+          code: "302",
+          title: "Found (Temporary Redirect)",
+          description: "Resource temporarily moved. Original URL should still be used for future requests.",
+          example: "GET /api/users\n# 302 Found\nLocation: /api/users-temp",
+          useCase: "Temporary maintenance redirects, A/B testing",
+        },
+        {
+          code: "304",
+          title: "Not Modified",
+          description: "Resource hasn't changed since last request. Client can use cached version.",
+          example: 'GET /api/users/123\nIf-None-Match: "abc123"\n# 304 Not Modified',
+          useCase: "Caching, conditional requests, bandwidth optimization",
+        },
+      ],
+    },
+    {
+      title: "Client Error Codes (4xx)",
+      badge: "Client Error",
+      description: "Indicates that the client seems to have made an error in the request.",
+      items: [
+        {
+          code: "400",
+          title: "Bad Request",
+          description: "Request is malformed, has invalid syntax, or contains invalid data.",
+          example: "POST /api/users\n# Missing required fields\n# 400 Bad Request",
+          useCase: "Invalid JSON, missing required fields, malformed requests",
+        },
+        {
+          code: "401",
+          title: "Unauthorized",
+          description: "Authentication is required or has failed. Client must authenticate.",
+          example: "GET /api/protected\n# No Authorization header\n# 401 Unauthorized",
+          useCase: "Missing credentials, expired tokens, invalid authentication",
+        },
+        {
+          code: "403",
+          title: "Forbidden",
+          description: "Server understood request but refuses to authorize it. User lacks permissions.",
+          example: "DELETE /api/admin/users\n# User not admin\n# 403 Forbidden",
+          useCase: "Insufficient permissions, blocked access, policy violations",
+        },
+        {
+          code: "404",
+          title: "Not Found",
+          description: "Requested resource could not be found on the server.",
+          example: "GET /api/users/999\n# User doesn't exist\n# 404 Not Found",
+          useCase: "Non-existent resources, wrong URLs, deleted content",
+        },
+        {
+          code: "405",
+          title: "Method Not Allowed",
+          description: "HTTP method not supported for this resource.",
+          example: "POST /api/users/123\n# Only GET allowed\n# 405 Method Not Allowed",
+          useCase: "Wrong HTTP method, read-only resources",
+        },
+        {
+          code: "409",
+          title: "Conflict",
+          description: "Request conflicts with current state of resource.",
+          example: "POST /api/users\n# Email already exists\n# 409 Conflict",
+          useCase: "Duplicate resources, version conflicts, concurrent modifications",
+        },
+        {
+          code: "422",
+          title: "Unprocessable Entity",
+          description: "Request is well-formed but contains semantic errors.",
+          example: "POST /api/users\n# Invalid email format\n# 422 Unprocessable Entity",
+          useCase: "Validation errors, business rule violations",
+        },
+        {
+          code: "429",
+          title: "Too Many Requests",
+          description: "Rate limit exceeded. Client should slow down requests.",
+          example: "GET /api/data\n# Rate limit: 100/hour exceeded\n# 429 Too Many Requests",
+          useCase: "Rate limiting, API quota exceeded, DDoS protection",
+        },
+      ],
+    },
+    {
+      title: "Server Error Codes (5xx)",
+      badge: "Server Error",
+      description: "Indicates that the server failed to fulfill a valid request.",
+      items: [
+        {
+          code: "500",
+          title: "Internal Server Error",
+          description: "Generic server error occurred. Something went wrong on the server side.",
+          example: "GET /api/users\n# Database connection failed\n# 500 Internal Server Error",
+          useCase: "Unhandled exceptions, database errors, server crashes",
+        },
+        {
+          code: "502",
+          title: "Bad Gateway",
+          description: "Server received invalid response from upstream server (proxy/gateway error).",
+          example: "GET /api/external-data\n# Upstream API returned invalid response\n# 502 Bad Gateway",
+          useCase: "Proxy errors, upstream service failures, load balancer issues",
+        },
+        {
+          code: "503",
+          title: "Service Unavailable",
+          description: "Server temporarily unavailable, usually due to maintenance or overload.",
+          example: "GET /api/users\n# Server under maintenance\n# 503 Service Unavailable\nRetry-After: 3600",
+          useCase: "Maintenance mode, server overload, temporary outages",
+        },
+        {
+          code: "504",
+          title: "Gateway Timeout",
+          description: "Server didn't receive timely response from upstream server.",
+          example: "GET /api/slow-operation\n# Upstream timeout\n# 504 Gateway Timeout",
+          useCase: "Slow upstream services, network timeouts, long-running operations",
+        },
+      ],
+    },
+  ],
+  bestPractices: [
+    "Always return appropriate status codes that match the actual result",
+    "Use 2xx codes for successful operations, not 200 for everything",
+    "Provide meaningful error messages in response body for 4xx/5xx codes",
+    "Use 404 for non-existent resources, not 400",
+    "Include Retry-After header with 429 and 503 responses",
+    "Use 422 for validation errors instead of 400 when request is well-formed",
+    "Log server errors (5xx) for debugging and monitoring",
+    "Be consistent with status code usage across your API",
+  ],
+}
