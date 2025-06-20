@@ -3,8 +3,6 @@
 # 🎓 API Academy
 ### *Master API Development with Interactive Learning*
 
-<img src="https://raw.githubusercontent.com/shubhjain191/API-Academy/main/public/placeholder-logo.svg" alt="API Academy Logo" width="120" height="120">
-
 [![Deployed on Vercel](https://img.shields.io/badge/🚀_Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/shubhjain191s-projects/v0-next-js-api-dashboard)
 [![Built with v0](https://img.shields.io/badge/🤖_Built_with-v0.dev-6366f1?style=for-the-badge&logo=robot&logoColor=white)](https://v0.dev/chat/projects/TghX9RorXd2)
 [![Next.js](https://img.shields.io/badge/⚡_Next.js-14-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
