@@ -48,39 +48,6 @@
 
 ---
 
-## 📋 **Table of Contents**
-
-<details>
-<summary>🗂️ <strong>Click to expand navigation</strong></summary>
-
-- [🌟 What Makes API Academy Special?](#-what-makes-api-academy-special)
-- [🎯 Overview](#-overview)
-- [✨ Features Showcase](#-features-showcase)
-- [🏗️ Architecture Deep Dive](#️-architecture-deep-dive)
-- [🛠️ Technologies & Stack](#️-technologies--stack)
-- [📁 Project Structure](#-project-structure)
-- [🚀 Quick Start Guide](#-quick-start-guide)
-- [📖 Usage & Navigation](#-usage--navigation)
-- [🗄️ Data Management](#️-data-management)
-- [🎨 UI/UX Features](#-uiux-features)
-- [🤝 Contributing](#-contributing)
-- [🚀 Deployment](#-deployment)
-- [📝 Project History](#-project-history)
-- [🎯 Roadmap](#-roadmap)
-- [📞 Support](#-support)
-
-</details>
-
----
-
-## 🎯 **Overview**
-
-<div align="center">
-<img src="https://via.placeholder.com/800x400/6366f1/ffffff?text=API+Academy+Dashboard" alt="API Academy Dashboard" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);">
-</div>
-
-> **API Academy** is not just another learning platform—it's a **beautifully crafted**, **interactive experience** designed to make API learning engaging, efficient, and enjoyable.
-
 ### 🎪 **The Experience**
 
 ```mermaid
@@ -89,9 +56,3 @@ graph LR
     B --> C[📝 Interview Prep]
     C --> D[⚡ Quick Revision]
     D --> E[🏆 Master APIs]
-    
-    style A fill:#6366f1,stroke:#4f46e5,color:#fff
-    style B fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style C fill:#ec4899,stroke:#db2777,color:#fff
-    style D fill:#f59e0b,stroke:#d97706,color:#fff
-    style E fill:#10b981,stroke:#059669,color:#fff
