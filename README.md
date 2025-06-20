@@ -13,7 +13,7 @@
 
 *A modern, interactive learning platform for API development with beautiful UI/UX*
 
-[🚀 **Live Demo**](https://vercel.com/shubhjain191s-projects/v0-next-js-api-dashboard) • [📖 **Documentation**](#-table-of-contents) • [🤝 **Contribute**](#-contributing) • [💬 **Discussions**](https://github.com/shubhjain191/API-Academy/discussions)
+[🚀 **Live Demo**](https://v0-next-js-api-dashboard-beta.vercel.app/)
 
 </div>
 
