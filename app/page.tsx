@@ -1,89 +1,155 @@
 "use client"
 
 import { useState } from "react"
-import { SidebarProvider } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { MainContent } from "@/components/main-content"
 import { SearchBar } from "@/components/search-bar"
 import { BookmarkManager } from "@/components/bookmark-manager"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
-import { Bookmark, BookmarkCheck } from "lucide-react"
-import { useBookmarks } from "@/hooks/use-bookmarks"
+import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
 import { useSearch } from "@/hooks/use-search"
+import { useBookmarks } from "@/hooks/use-bookmarks"
+import { Bookmark, Sparkles, Zap, Brain } from "lucide-react"
 
-export default function APIAcademy() {
+export default function HomePage() {
   const [selectedTopic, setSelectedTopic] = useState("http-verbs")
   const [showBookmarks, setShowBookmarks] = useState(false)
-  const { bookmarks, toggleBookmark, isBookmarked } = useBookmarks()
-  const { searchQuery, setSearchQuery, searchResults, isSearching } = useSearch()
+  const { searchQuery, searchResults, isSearching, handleSearch } = useSearch()
+  const { bookmarks, isBookmarked, toggleBookmark } = useBookmarks()
+
+  const handleTopicSelect = (topic: string) => {
+    setSelectedTopic(topic)
+    setShowBookmarks(false)
+  }
+
+  const handleShowBookmarks = () => {
+    setShowBookmarks(true)
+  }
+
+  const handleCloseBookmarks = () => {
+    setShowBookmarks(false)
+  }
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <SidebarProvider>
         <AppSidebar
           selectedTopic={selectedTopic}
-          onTopicSelect={setSelectedTopic}
+          onTopicSelect={handleTopicSelect}
           searchResults={searchResults}
           isSearching={isSearching}
           searchQuery={searchQuery}
         />
-        <div className="flex-1 flex flex-col">
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-white px-4 shadow-sm">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold text-gray-800">API Academy</h1>
-              <div className="hidden sm:block text-sm text-gray-600">Master API Development</div>
-            </div>
-            <div className="flex-1 max-w-md mx-4">
-              <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => toggleBookmark(selectedTopic)}
-                className="hidden sm:flex"
-              >
-                {isBookmarked(selectedTopic) ? (
-                  <BookmarkCheck className="h-4 w-4 text-gray-700" />
-                ) : (
-                  <Bookmark className="h-4 w-4" />
+        <SidebarInset className="flex flex-col">
+          {/* Enhanced Header */}
+          <header className="sticky top-0 z-50 glass border-b border-white/20 backdrop-blur-xl">
+            <div className="flex h-20 items-center gap-4 px-6">
+              <SidebarTrigger className="btn-gradient text-white hover:scale-105 transition-transform" />
+              <Separator orientation="vertical" className="h-8 bg-gradient-to-b from-blue-200 to-indigo-300" />
+
+              {/* Logo and Title */}
+              <div className="flex items-center gap-3 animate-fade-in-up">
+                <div className="relative">
+                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center animate-pulse-glow">
+                    <Brain className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 h-4 w-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                    <Sparkles className="h-2 w-2 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold gradient-text-blue">API Academy</h1>
+                  <p className="text-xs text-slate-600">Master Modern APIs</p>
+                </div>
+              </div>
+
+              <div className="flex-1 max-w-md mx-4">
+                <SearchBar searchQuery={searchQuery} onSearchChange={handleSearch} />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleShowBookmarks}
+                  className="glass border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105"
+                >
+                  <Bookmark className="h-4 w-4 mr-2" />
+                  Bookmarks
+                  {bookmarks.length > 0 && (
+                    <Badge variant="secondary" className="ml-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
+                      {bookmarks.length}
+                    </Badge>
+                  )}
+                </Button>
+
+                {!showBookmarks && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => toggleBookmark(selectedTopic)}
+                    className={`transition-all duration-300 hover:scale-105 ${
+                      isBookmarked(selectedTopic)
+                        ? "bg-gradient-to-r from-yellow-400 to-orange-500 text-white border-yellow-400 hover:from-yellow-500 hover:to-orange-600"
+                        : "glass border-white/30 hover:bg-white/20"
+                    }`}
+                  >
+                    <Bookmark className={`h-4 w-4 ${isBookmarked(selectedTopic) ? "fill-current" : ""}`} />
+                  </Button>
                 )}
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => setShowBookmarks(!showBookmarks)} className="relative">
-                <Bookmark className="h-4 w-4" />
-                {bookmarks.length > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 bg-gray-800 text-white text-xs rounded-full flex items-center justify-center">
-                    {bookmarks.length}
-                  </span>
-                )}
-              </Button>
+              </div>
             </div>
           </header>
-          <main className="flex-1 overflow-auto p-6">
-            {showBookmarks ? (
-              <BookmarkManager
-                bookmarks={bookmarks}
-                onTopicSelect={(topic) => {
-                  setSelectedTopic(topic)
-                  setShowBookmarks(false)
-                }}
-                onClose={() => setShowBookmarks(false)}
-              />
-            ) : (
-              <MainContent
-                selectedTopic={selectedTopic}
-                searchResults={searchResults}
-                isSearching={isSearching}
-                searchQuery={searchQuery}
-              />
-            )}
+
+          {/* Enhanced Main Content */}
+          <main className="flex-1 overflow-auto">
+            <div className="container mx-auto p-6 animate-fade-in-up">
+              {showBookmarks ? (
+                <div className="animate-slide-in">
+                  <BookmarkManager
+                    bookmarks={bookmarks}
+                    onTopicSelect={handleTopicSelect}
+                    onClose={handleCloseBookmarks}
+                  />
+                </div>
+              ) : (
+                <div className="animate-fade-in-up">
+                  <MainContent
+                    selectedTopic={selectedTopic}
+                    searchResults={searchResults}
+                    isSearching={isSearching}
+                    searchQuery={searchQuery}
+                  />
+                </div>
+              )}
+            </div>
           </main>
-        </div>
-      </div>
-    </SidebarProvider>
+
+          {/* Enhanced Footer */}
+          <footer className="glass border-t border-white/20 backdrop-blur-xl mt-auto">
+            <div className="container mx-auto px-6 py-4">
+              <div className="flex items-center justify-between text-sm text-slate-600">
+                <div className="flex items-center gap-2">
+                  <Zap className="h-4 w-4 text-blue-500" />
+                  <span>Built with Next.js & Tailwind CSS</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span>© 2024 API Academy</span>
+                  <Badge
+                    variant="outline"
+                    className="bg-gradient-to-r from-green-400 to-blue-500 text-white border-none"
+                  >
+                    v2.0
+                  </Badge>
+                </div>
+              </div>
+            </div>
+          </footer>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   )
 }
